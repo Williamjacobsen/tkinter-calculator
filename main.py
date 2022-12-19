@@ -14,6 +14,9 @@ def set_stack(n):
 def evaluate_stack():
     l.config(text = eval(stack))
 
+def create_btn(op: str, row: int, column: int):
+    Button(gui, text=op, fg='white', bg='gray', command=lambda: set_stack(op), height=2, width=10).grid(row=row, column=column)
+
 if __name__ == '__main__':
     gui = Tk()
     gui.configure(background="black")
@@ -23,23 +26,22 @@ if __name__ == '__main__':
 
     l.grid(columnspan=4)
 
-    Button(gui, text='1', fg='white', bg='gray', command=lambda: set_stack(1), height=2, width=10).grid(row=1, column=0)
-    Button(gui, text='2', fg='white', bg='gray', command=lambda: set_stack(2), height=2, width=10).grid(row=1, column=1)
-    Button(gui, text='3', fg='white', bg='gray', command=lambda: set_stack(3), height=2, width=10).grid(row=1, column=2)
-    Button(gui, text='4', fg='white', bg='gray', command=lambda: set_stack(4), height=2, width=10).grid(row=2, column=0)
-    Button(gui, text='5', fg='white', bg='gray', command=lambda: set_stack(5), height=2, width=10).grid(row=2, column=1)
-    Button(gui, text='6', fg='white', bg='gray', command=lambda: set_stack(6), height=2, width=10).grid(row=2, column=2)
-    Button(gui, text='7', fg='white', bg='gray', command=lambda: set_stack(7), height=2, width=10).grid(row=3, column=0)
-    Button(gui, text='8', fg='white', bg='gray', command=lambda: set_stack(8), height=2, width=10).grid(row=3, column=1)
-    Button(gui, text='9', fg='white', bg='gray', command=lambda: set_stack(9), height=2, width=10).grid(row=3, column=2)
-    Button(gui, text='0', fg='white', bg='gray', command=lambda: set_stack(0), height=2, width=10).grid(row=4, column=0)
-    
-    Button(gui, text='+', fg='white', bg='gray', command=lambda: set_stack('+'), height=2, width=10).grid(row=1, column=4)
-    Button(gui, text='-', fg='white', bg='gray', command=lambda: set_stack('-'), height=2, width=10).grid(row=2, column=4)
-    Button(gui, text='*', fg='white', bg='gray', command=lambda: set_stack('*'), height=2, width=10).grid(row=3, column=4)
-    Button(gui, text='/', fg='white', bg='gray', command=lambda: set_stack('/'), height=2, width=10).grid(row=4, column=4)
+    create_btn('1', 1, 0)
+    create_btn('2', 1, 1)
+    create_btn('3', 1, 2)
+    create_btn('4', 2, 0)
+    create_btn('5', 2, 1)
+    create_btn('6', 2, 2)
+    create_btn('7', 3, 0)
+    create_btn('8', 3, 1)
+    create_btn('9', 3, 2)
+    create_btn('0', 4, 0)
 
-    Button(gui, text='Calculate', fg='white', bg='gray', command=lambda: evaluate_stack(), height=2, width=10).grid(row=4, column=1)
+    create_btn('+', 1, 4)
+    create_btn('-', 2, 4)
+    create_btn('*', 3, 4)
+    create_btn('/', 4, 4)
+    Button(gui, text='Calculate', fg='white', bg='gray', command=evaluate_stack, height=2, width=10).grid(row=4, column=1)
 
     gui.mainloop()
 
