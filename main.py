@@ -1,47 +1,27 @@
-# https://www.tutorialspoint.com/python/python_gui_programming.htm
+# https://www.tutorialspoint.com/python3/python_gui_programming.htm
+# https://python.readthedocs.io/en/stable/library/tkinter.html 
 
-from tkinter import *
-import os
-os.system('clear')
+import tkinter as tk
 
-stack = ""
-def set_stack(n):
-    global stack
-    stack += str(n)
-    l.config(text = stack)
-    print(stack)
+class Application(tk.Frame):
+    def __init__(self, master=None):
+        super().__init__(master)
+        self.pack()
+        self.create_widgets()
 
-def evaluate_stack():
-    l.config(text = eval(stack))
+    def create_widgets(self):
+        tk.Button(self, text="1", command=lambda:self.add_to_stack(1)).pack(side="right")
+        tk.Button(self, text="2", command=lambda:self.add_to_stack(2)).pack(side="right")
+        tk.Button(self, text="3", command=lambda:self.add_to_stack(3)).pack(side="right")
 
-def create_btn(op: str, row: int, column: int):
-    Button(gui, text=op, fg='white', bg='gray', command=lambda: set_stack(op), height=2, width=10).grid(row=row, column=column)
+        self.quit = tk.Button(self, text="QUIT", fg="red",
+                              command=root.destroy)
+        self.quit.pack(side="bottom")
 
-if __name__ == '__main__':
-    gui = Tk()
-    gui.configure(background="black")
-    gui.title("Calculator")
+    def add_to_stack(self, item):
+        print(item)
 
-    l = Label(gui, text=str(stack), width=40, height=2)
-
-    l.grid(columnspan=4)
-
-    create_btn('1', 1, 0)
-    create_btn('2', 1, 1)
-    create_btn('3', 1, 2)
-    create_btn('4', 2, 0)
-    create_btn('5', 2, 1)
-    create_btn('6', 2, 2)
-    create_btn('7', 3, 0)
-    create_btn('8', 3, 1)
-    create_btn('9', 3, 2)
-    create_btn('0', 4, 0)
-
-    create_btn('+', 1, 4)
-    create_btn('-', 2, 4)
-    create_btn('*', 3, 4)
-    create_btn('/', 4, 4)
-    Button(gui, text='Calculate', fg='white', bg='gray', command=evaluate_stack, height=2, width=10).grid(row=4, column=1)
-
-    gui.mainloop()
+root = tk.Tk()
+app = Application(master=root)
+app.mainloop()
 
