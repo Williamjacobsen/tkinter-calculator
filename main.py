@@ -11,6 +11,7 @@ else:
     os.system('clear')
 
 stack = ""
+stack_history = []
 
 def set_stack(n):
     global stack
@@ -42,11 +43,18 @@ def _round():
 def squared():
     global stack
 
-    stack = eval(f"({stack})**2")
+    stack = str(eval(f"({stack})**2"))
     l.config(text = stack)
 
+def update_stack_history():
+    global stack_history
+    if len(stack_history) >= 5:
+        stack_history.pop(0)
+    history.config(text = str('\n'.join(stack_history)))
+
 def evaluate_stack(): 
-    global stack   
+    global stack
+    global stack_history
 
     if '\u221A' in stack: # sqrt
         stack = stack.split('\u221A')
@@ -59,6 +67,10 @@ def evaluate_stack():
         stack = ''.join(stack)
 
     stack = str(eval(str(stack)))
+
+    stack_history.append(stack)
+    update_stack_history()
+    
     print(stack)
     l.config(text = stack)
 
@@ -69,10 +81,12 @@ if __name__ == '__main__':
     gui = Tk()
     gui.configure(background="gray")
     gui.title("Calculator")
+    gui.geometry("620x220")
 
-    l = Label(gui, text=str(stack), width=20, height=2, font=40)
-
+    l = Label(gui, text=str(stack), width=20, height=2, font=40) # equation label
     l.grid(column=0, columnspan=3)
+    history = Label(gui, text="", width=10, height=10, font=40)
+    history.place(bordermode='ignore', x=490, y=5)
 
     create_btn('7', 1, 0)
     create_btn('8', 1, 1)
