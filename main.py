@@ -39,6 +39,12 @@ def _round():
 
     l.config(text = stack)
 
+def squared():
+    global stack
+
+    stack = eval(f"({stack})**2")
+    l.config(text = stack)
+
 def evaluate_stack(): 
     global stack   
 
@@ -87,6 +93,7 @@ if __name__ == '__main__':
     create_btn('\u221A', 0, 4) # sqrt
     create_btn('(', 1, 5)
     create_btn(')', 1, 6)
+    Button(gui, text='x\u00B2', fg='white', bg='gray', command=squared, height=2, width=10).grid(row=4, column=2) # squared
 
     Button(gui, text='C', fg='white', bg='gray', command=stack_clear, height=2, width=10).grid(row=0, column=6)
     Button(gui, text='\u293A', fg='white', bg='gray', command=stack_clear_latest, height=2, width=10).grid(row=0, column=5) # arrow back
