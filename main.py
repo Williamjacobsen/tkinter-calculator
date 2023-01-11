@@ -21,11 +21,23 @@ def set_stack(n):
     l.config(text = stack)
     print(stack)
 
+def stack_clear():
+    stack = ""
+    l.config(text = stack)
+
 def stack_clear_latest():
     global stack
     stack = stack[:-1]
     l.config(text = stack)
     print(stack)
+
+def _round():
+    global stack
+
+    evaluate_stack()
+    stack = str(round(float(stack), 2))
+
+    l.config(text = stack)
 
 def evaluate_stack(): 
     global stack   
@@ -52,7 +64,7 @@ if __name__ == '__main__':
     gui.configure(background="gray")
     gui.title("Calculator")
 
-    l = Label(gui, text=str(stack), width=30, height=2, font=40)
+    l = Label(gui, text=str(stack), width=20, height=2, font=40)
 
     l.grid(column=0, columnspan=3)
 
@@ -73,10 +85,12 @@ if __name__ == '__main__':
     create_btn('-', 3, 4)
     create_btn('+', 4, 4)
     create_btn('\u221A', 0, 4) # sqrt
+    create_btn('(', 1, 5)
+    create_btn(')', 1, 6)
 
-    Button(gui, text='C', fg='white', bg='gray', command=stack_clear_latest, height=2, width=10).grid(row=0, column=6)
-    Button(gui, text='\u293A', font=("Arial", 22), fg='white', bg='gray', command=stack_clear_latest, height=1, width=5).grid(row=0, column=5) # arrow back
-    
+    Button(gui, text='C', fg='white', bg='gray', command=stack_clear, height=2, width=10).grid(row=0, column=6)
+    Button(gui, text='\u293A', fg='white', bg='gray', command=stack_clear_latest, height=2, width=10).grid(row=0, column=5) # arrow back
+    Button(gui, text='Round', fg='white', bg='gray', command=_round, height=2, width=10).grid(row=3, column=6)
     Button(gui, text='Calculate', fg='white', bg='gray', command=evaluate_stack, height=2, width=10).grid(row=4, column=6)
 
     gui.mainloop()
